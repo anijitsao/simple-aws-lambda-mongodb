@@ -1,0 +1,21 @@
+{
+  "service": "simple-aws-lamba-mongodb",
+  "frameworkVersion": "3",
+  "plugins": ["serverless-dotenv-plugin"],
+  "configValidationMode": "error",
+
+  "provider": {
+    "name": "aws",
+    "region": "ap-south-1",
+    "runtime": "nodejs16.x",
+    "memorySize": 128,
+    "deploymentMethod": "direct"
+  },
+
+  "functions": {
+    "getAllUsers": {
+      "handler": "src/users.getAllUsersHandler",
+      "events": [{ "httpApi": "GET /getallusers" }]
+    }
+  }
+}
