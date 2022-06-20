@@ -1,22 +1,25 @@
 // local dependencies
-import { sendResponse } from "../helpers/sendResponse.js";
-import { dbClient } from "../lib/mongoClient.js";
-import { getAllUsers } from "../helpers/dbOps.js";
+import {
+  getAllUsers,
+  addUserToDB,
+  deleteUserFromDB,
+  updateUserToDB,
+} from "../helpers/userdbOps.js";
 
 const getAllUsersHandler = async (event) => {
   return getAllUsers();
 };
 
 const addUserHandler = async (event) => {
-  return getAllUsers();
+  return addUserToDB();
 };
 
 const deleteUserHandler = async (event) => {
-  return getAllUsers();
+  return deleteUserFromDB();
 };
 
 const updateUserHandler = async (event) => {
-  return getAllUsers();
+  return updateUserToDB();
 };
 
 export {
