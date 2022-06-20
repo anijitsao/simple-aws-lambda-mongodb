@@ -1,7 +1,10 @@
 // local dependencies
 import { sendResponse } from "../helpers/sendResponse.js";
 import { dbClient } from "../lib/mongoClient.js";
-import { closeConnectionToDB } from "../helpers/dbHelpers.js";
+import {
+  createConnectionToDB,
+  closeConnectionToDB,
+} from "../helpers/dbHelpers.js";
 
 // top level await to connect the MongoDB Atlas
 // const client = await dbClient.connect();
@@ -18,7 +21,7 @@ const {
 } = process.env;
 
 const getAllUsers = async () => {
-  const client = await dbClient.connect();
+  const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = client.db(DB_NAME);
@@ -43,7 +46,7 @@ const getAllUsers = async () => {
 };
 
 const addUserToDB = async () => {
-  const client = await dbClient.connect();
+  const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = client.db(DB_NAME);
@@ -68,7 +71,7 @@ const addUserToDB = async () => {
 };
 
 const deleteUserFromDB = async () => {
-  const client = await dbClient.connect();
+  const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = client.db(DB_NAME);
@@ -93,7 +96,7 @@ const deleteUserFromDB = async () => {
 };
 
 const updateUserToDB = async () => {
-  const client = await dbClient.connect();
+  const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = client.db(DB_NAME);
