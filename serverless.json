@@ -14,7 +14,7 @@
 
   "functions": {
     "getAllUsers": {
-      "handler": "src/users.getAllUsersHandler",
+      "handler": "src/services/userService.getAllUsersHandler",
       "events": [{ "httpApi": "GET /getallusers" }]
     }
   }
