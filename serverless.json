@@ -28,6 +28,10 @@
     "updateUser": {
       "handler": "src/services/userService.updateUserHandler",
       "events": [{ "httpApi": "PUT /updateuser" }]
+    },
+    "login": {
+      "handler": "src/services/loginService.loginHandler",
+      "events": [{ "httpApi": "POST /login" }]
     }
   }
 }
