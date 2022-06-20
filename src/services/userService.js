@@ -4,7 +4,7 @@ import {
   addUserToDB,
   deleteUserFromDB,
   updateUserToDB,
-} from "../helpers/userdbOps.js";
+} from "../dbRelated/userdbOps.js";
 
 const getAllUsersHandler = async (event) => {
   return getAllUsers();

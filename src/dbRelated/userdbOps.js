@@ -1,7 +1,7 @@
 // local dependencies
-import { sendResponse } from "./sendResponse.js";
+import { sendResponse } from "../helpers/sendResponse.js";
 import { dbClient } from "../lib/mongoClient.js";
-import { closeConnectionToDB } from "./dbOps.js";
+import { closeConnectionToDB } from "../helpers/dbHelpers.js";
 
 // top level await to connect the MongoDB Atlas
 // const client = await dbClient.connect();
