@@ -4,6 +4,7 @@ import { dbClient } from "../lib/mongoClient.js";
 import {
   createConnectionToDB,
   closeConnectionToDB,
+  selectDB,
 } from "../helpers/dbHelpers.js";
 
 // top level await to connect the MongoDB Atlas
@@ -24,7 +25,7 @@ const getAllUsers = async () => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
-    const db = client.db(DB_NAME);
+    const db = selectDB(client, DB_NAME);
 
     // query the collection for all users
     const data = await db
@@ -45,22 +46,18 @@ const getAllUsers = async () => {
   }
 };
 
-const addUserToDB = async () => {
+const addUserToDB = async (userToAdd) => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
-    const db = client.db(DB_NAME);
+    const db = selectDB(client, DB_NAME);
 
-    // query the collection for all users
-    const data = await db
+    // insert the user in the collection
+    const res = await db
       .collection(COLLECTION_USER_STICKER)
-      .find({})
-      .toArray();
+      .insertOne(userToAdd);
 
-    const users = data.length > 0 ? [...data] : [];
-    const res = { users };
-
-    return sendResponse(SUCCESS_CODE, res);
+    return sendResponse(SUCCESS_CODE, { ...userToAdd, _id: res.insertedId });
   } catch (error) {
     // console.error("Error occurred", error);
     return sendResponse(ERROR_CODE, { error });
@@ -74,7 +71,7 @@ const deleteUserFromDB = async () => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
-    const db = client.db(DB_NAME);
+    const db = selectDB(client, DB_NAME);
 
     // query the collection for all users
     const data = await db
@@ -99,7 +96,7 @@ const updateUserToDB = async () => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
-    const db = client.db(DB_NAME);
+    const db = selectDB(client, DB_NAME);
 
     // query the collection for all users
     const data = await db

@@ -9,4 +9,8 @@ const closeConnectionToDB = (client) => {
   client.close();
 };
 
-export { createConnectionToDB, closeConnectionToDB };
+const selectDB = (client, DB_NAME) => {
+  return client.db(DB_NAME);
+};
+
+export { createConnectionToDB, closeConnectionToDB, selectDB };
