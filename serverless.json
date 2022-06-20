@@ -16,6 +16,18 @@
     "getAllUsers": {
       "handler": "src/services/userService.getAllUsersHandler",
       "events": [{ "httpApi": "GET /getallusers" }]
+    },
+    "addUser": {
+      "handler": "src/services/userService.addUserHandler",
+      "events": [{ "httpApi": "POST /adduser" }]
+    },
+    "deleteUser": {
+      "handler": "src/services/userService.deleteUserHandler",
+      "events": [{ "httpApi": "DELETE /deleteuser" }]
+    },
+    "updateUser": {
+      "handler": "src/services/userService.updateUserHandler",
+      "events": [{ "httpApi": "PUT /updateuser" }]
     }
   }
 }

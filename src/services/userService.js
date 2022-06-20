@@ -7,4 +7,21 @@ const getAllUsersHandler = async (event) => {
   return getAllUsers();
 };
 
-export { getAllUsersHandler };
+const addUserHandler = async (event) => {
+  return getAllUsers();
+};
+
+const deleteUserHandler = async (event) => {
+  return getAllUsers();
+};
+
+const updateUserHandler = async (event) => {
+  return getAllUsers();
+};
+
+export {
+  getAllUsersHandler,
+  addUserHandler,
+  deleteUserHandler,
+  updateUserHandler,
+};
