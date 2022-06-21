@@ -87,23 +87,23 @@ const deleteUserFromDB = async (recordId) => {
   }
 };
 
-const updateUserToDB = async () => {
+const updateUserToDB = async (updateId, updateDoc) => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = selectDB(client, DB_NAME);
 
-    // query the collection for all users
-    const data = await db
+    const filter = { _id: convertToObjectId(updateId) };
+    // const options = { upsert: false };
+
+    // update the record in the collection
+    const res = await db
       .collection(COLLECTION_USER_STICKER)
-      .find({})
-      .toArray();
+      .updateOne(filter, { $set: { ...updateDoc } });
 
-    const users = data.length > 0 ? [...data] : [];
-    const res = { users };
-
-    return sendResponse(SUCCESS_CODE, res);
+    return sendResponse(SUCCESS_CODE, { modifiedCount: res.modifiedCount });
   } catch (error) {
+    console.error("Error occurred: ", error);
     return sendResponse(ERROR_CODE, { error });
   } finally {
     // close the connection to MongoDB Atlas

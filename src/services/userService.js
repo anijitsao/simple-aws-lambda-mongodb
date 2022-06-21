@@ -37,7 +37,17 @@ const deleteUserHandler = async (event) => {
 };
 
 const updateUserHandler = async (event) => {
-  return updateUserToDB();
+  const reqBody = {
+    updateId: "62b075128a5e9b806c105cd5",
+    updateDoc: {
+      name: "Anijit Sau",
+      desigantion: "Developer",
+      country: "India",
+    },
+  };
+
+  const { updateId, updateDoc } = reqBody;
+  return updateUserToDB(updateId, updateDoc);
 };
 
 export {
