@@ -24,7 +24,16 @@ const addUserHandler = async (event) => {
 };
 
 const deleteUserHandler = async (event) => {
-  return deleteUserFromDB();
+  // extracting the recordId from query string
+  const recordId = event?.queryStringParameters?.recordId;
+
+  // if the delete parameters are not present
+  if (!recordId) {
+    return sendResponse(process.env.ERROR_CODE, {
+      message: "Delete parameters can not be blank",
+    });
+  }
+  return deleteUserFromDB(recordId);
 };
 
 const updateUserHandler = async (event) => {

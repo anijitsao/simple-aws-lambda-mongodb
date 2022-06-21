@@ -1,4 +1,5 @@
-import { dbClient } from "../lib/mongoClient.js";
+// local dependencies
+import { dbClient, ObjectId } from "../lib/mongoClient.js";
 
 const createConnectionToDB = async () => {
   const client = await dbClient.connect();
@@ -13,4 +14,11 @@ const selectDB = (client, DB_NAME) => {
   return client.db(DB_NAME);
 };
 
-export { createConnectionToDB, closeConnectionToDB, selectDB };
+const convertToObjectId = (strId) => ObjectId(strId);
+
+export {
+  createConnectionToDB,
+  closeConnectionToDB,
+  selectDB,
+  convertToObjectId,
+};

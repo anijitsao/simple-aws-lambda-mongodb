@@ -1,10 +1,10 @@
 // local dependencies
 import { sendResponse } from "../helpers/sendResponse.js";
-import { dbClient } from "../lib/mongoClient.js";
 import {
   createConnectionToDB,
   closeConnectionToDB,
   selectDB,
+  convertToObjectId,
 } from "../helpers/dbHelpers.js";
 
 // top level await to connect the MongoDB Atlas
@@ -67,24 +67,19 @@ const addUserToDB = async (userToAdd) => {
   }
 };
 
-const deleteUserFromDB = async () => {
+const deleteUserFromDB = async (recordId) => {
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
     const db = selectDB(client, DB_NAME);
 
-    // query the collection for all users
-    const data = await db
+    // delete the particurlar record from the collection
+    const res = await db
       .collection(COLLECTION_USER_STICKER)
-      .find({})
-      .toArray();
+      .deleteOne({ _id: convertToObjectId(recordId) });
 
-    const users = data.length > 0 ? [...data] : [];
-    const res = { users };
-
-    return sendResponse(SUCCESS_CODE, res);
+    return sendResponse(SUCCESS_CODE, { deletedCount: res.deletedCount });
   } catch (error) {
-    // console.error("Error occurred", error);
     return sendResponse(ERROR_CODE, { error });
   } finally {
     // close the connection to MongoDB Atlas
@@ -109,7 +104,6 @@ const updateUserToDB = async () => {
 
     return sendResponse(SUCCESS_CODE, res);
   } catch (error) {
-    // console.error("Error occurred", error);
     return sendResponse(ERROR_CODE, { error });
   } finally {
     // close the connection to MongoDB Atlas
