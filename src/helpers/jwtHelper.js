@@ -15,4 +15,28 @@ const createToken = (payload) => {
   return token;
 };
 
-export { createToken };
+const verifyToken = (event) => {
+  const token = extractToken(event);
+  try {
+    const decoded = verify(token, process.env.JWT_SECRET);
+
+    // if the token has the correct data it is passed
+    if (decoded.username === "anijit123") {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+const extractToken = (event) => {
+  const { headers } = event;
+  const tokenExtracted = headers.authorization
+    ? headers.authorization.replace("Bearer ", "")
+    : "";
+
+  return tokenExtracted;
+};
+
+export { createToken, verifyToken };

@@ -1,6 +1,6 @@
 export function sendResponse(statusCode, responseBody, jwtToken) {
   const headers = {
-    "Content-type": "application/json",
+    "content-type": "application/json",
     "x-xss-protection": "1; mode=block",
     "x-frame-options": "DENY",
     "content-security-policy":
