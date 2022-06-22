@@ -12,11 +12,8 @@ import {
 
 // all the db related process variables
 const {
-  URI_TO_CONNECT_MONGODB,
   DB_NAME,
   COLLECTION_USER_STICKER,
-  SUCCESS,
-  SERVER_ERR,
   SUCCESS_CODE,
   ERROR_CODE,
 } = process.env;
@@ -41,7 +38,7 @@ const getAllUsers = async () => {
     // console.error("Error occurred", error);
     return sendResponse(ERROR_CODE, {
       message: "Unable to get all records",
-      error,
+      error: error.toString(),
     });
   } finally {
     // close the connection to MongoDB Atlas
@@ -65,7 +62,7 @@ const addUserToDB = async (userToAdd) => {
     // console.error("Error occurred", error);
     return sendResponse(ERROR_CODE, {
       message: "Unable to insert the record",
-      error,
+      error: error.toString(),
     });
   } finally {
     // close the connection to MongoDB Atlas
@@ -88,7 +85,7 @@ const deleteUserFromDB = async (recordId) => {
   } catch (error) {
     return sendResponse(ERROR_CODE, {
       message: "Unable to delete the record",
-      error,
+      error: error.toString(),
     });
   } finally {
     // close the connection to MongoDB Atlas
@@ -115,7 +112,7 @@ const updateUserToDB = async (updateId, updateDoc) => {
     console.error("Error occurred: ", error);
     return sendResponse(ERROR_CODE, {
       message: "Unable to update the record",
-      error,
+      error: error.toString(),
     });
   } finally {
     // close the connection to MongoDB Atlas
