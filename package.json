@@ -14,6 +14,7 @@
     "serverless-dotenv-plugin": "^4.0.1"
   },
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.7.0"
   }
 }
