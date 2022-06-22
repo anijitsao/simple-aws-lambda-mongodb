@@ -39,7 +39,10 @@ const getAllUsers = async () => {
     return sendResponse(SUCCESS_CODE, res);
   } catch (error) {
     // console.error("Error occurred", error);
-    return sendResponse(ERROR_CODE, { error });
+    return sendResponse(ERROR_CODE, {
+      message: "Unable to get all records",
+      error,
+    });
   } finally {
     // close the connection to MongoDB Atlas
     closeConnectionToDB(client);
@@ -60,7 +63,10 @@ const addUserToDB = async (userToAdd) => {
     return sendResponse(SUCCESS_CODE, { ...userToAdd, _id: res.insertedId });
   } catch (error) {
     // console.error("Error occurred", error);
-    return sendResponse(ERROR_CODE, { error });
+    return sendResponse(ERROR_CODE, {
+      message: "Unable to insert the record",
+      error,
+    });
   } finally {
     // close the connection to MongoDB Atlas
     closeConnectionToDB(client);
@@ -80,7 +86,10 @@ const deleteUserFromDB = async (recordId) => {
 
     return sendResponse(SUCCESS_CODE, { deletedCount: res.deletedCount });
   } catch (error) {
-    return sendResponse(ERROR_CODE, { error });
+    return sendResponse(ERROR_CODE, {
+      message: "Unable to delete the record",
+      error,
+    });
   } finally {
     // close the connection to MongoDB Atlas
     closeConnectionToDB(client);
@@ -104,7 +113,10 @@ const updateUserToDB = async (updateId, updateDoc) => {
     return sendResponse(SUCCESS_CODE, { modifiedCount: res.modifiedCount });
   } catch (error) {
     console.error("Error occurred: ", error);
-    return sendResponse(ERROR_CODE, { error });
+    return sendResponse(ERROR_CODE, {
+      message: "Unable to update the record",
+      error,
+    });
   } finally {
     // close the connection to MongoDB Atlas
     closeConnectionToDB(client);

@@ -37,9 +37,16 @@ const deleteUserHandler = async (event) => {
 };
 
 const updateUserHandler = async (event) => {
-  const reqBody = JSON.parse(event.body);
+  const reqBody = event.body && JSON.parse(event.body);
 
   const { updateId, updateDoc } = reqBody;
+  
+  // if update parameters are missing
+  if (!updateId || !updateDoc || Object.keys(updateDoc).length === 0) {
+    return sendResponse(process.env.ERROR_CODE, {
+      message: "Update parameters can not be blank",
+    });
+  }
   return updateUserToDB(updateId, updateDoc);
 };
 
