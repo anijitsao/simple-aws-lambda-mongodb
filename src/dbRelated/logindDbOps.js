@@ -4,7 +4,6 @@ import {
   closeConnectionToDB,
   selectDB,
 } from "../helpers/dbHelpers.js";
-import { sendResponse } from "../helpers/sendResponse.js";
 
 // all the db related process variables
 const { DB_NAME, COLLECTION_USER_STICKER } = process.env;
