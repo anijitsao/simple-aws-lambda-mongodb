@@ -16,11 +16,17 @@ export async function loginHandler(event) {
     // if payload contains a valid username
     const userInfo = await findUserFromDb(payload);
 
+    if (!userInfo || !userInfo.username) {
+      return sendResponse(process.env.ERROR_CODE, {
+        message: userInfo?.error || "User is not present",
+      });
+    }
+
     // create token if a valid user found
     const token = createToken(payload);
 
     // send the  response
-    const res = { msg: "login successful" };
+    const res = { msg: "login successful", userInfo };
     return sendResponse(process.env.SUCCESS_CODE, res, token);
   } catch (error) {
     return sendResponse(process.env.ERROR_CODE, { error: error.toString() });
