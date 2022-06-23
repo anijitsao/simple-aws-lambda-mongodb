@@ -4,7 +4,7 @@ import {
   addUserToDB,
   deleteUserFromDB,
   updateUserToDB,
-} from "../dbRelated/userdbOps.js";
+} from "../dbRelated/userDbOps.js";
 
 import {
   sendResponse,
