@@ -20,3 +20,9 @@ export function sendResponse(statusCode, responseBody, jwtToken) {
     body: JSON.stringify(responseBody),
   };
 }
+
+export function sendForbiddenResponse() {
+  return sendResponse(process.env.ERROR_FORBIDDEN_CODE, {
+    message: "Token validation error",
+  });
+}

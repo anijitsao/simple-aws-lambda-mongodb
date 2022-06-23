@@ -6,15 +6,17 @@ import {
   updateUserToDB,
 } from "../dbRelated/userdbOps.js";
 
-import { sendResponse } from "../helpers/sendResponse.js";
+import {
+  sendResponse,
+  sendForbiddenResponse,
+} from "../helpers/sendResponse.js";
+
 import { verifyToken } from "../helpers/jwtHelper.js";
 
 const getAllUsersHandler = async (event) => {
   const verified = verifyToken(event);
   if (!verified) {
-    return sendResponse(process.env.ERROR_FORBIDDEN_CODE, {
-      message: "Token validation error",
-    });
+    return sendForbiddenResponse();
   }
   return getAllUsers();
 };
@@ -22,9 +24,7 @@ const getAllUsersHandler = async (event) => {
 const addUserHandler = async (event) => {
   const verified = verifyToken(event);
   if (!verified) {
-    return sendResponse(process.env.ERROR_FORBIDDEN_CODE, {
-      message: "Token validation error",
-    });
+    return sendForbiddenResponse();
   }
   const reqBody = event?.body && JSON.parse(event.body);
 
@@ -40,9 +40,7 @@ const addUserHandler = async (event) => {
 const deleteUserHandler = async (event) => {
   const verified = verifyToken(event);
   if (!verified) {
-    return sendResponse(process.env.ERROR_FORBIDDEN_CODE, {
-      message: "Token validation error",
-    });
+    return sendForbiddenResponse();
   }
   // extracting the recordId from query string
   const recordId = event?.queryStringParameters?.recordId;
@@ -59,9 +57,7 @@ const deleteUserHandler = async (event) => {
 const updateUserHandler = async (event) => {
   const verified = verifyToken(event);
   if (!verified) {
-    return sendResponse(process.env.ERROR_FORBIDDEN_CODE, {
-      message: "Token validation error",
-    });
+    return sendForbiddenResponse();
   }
   const reqBody = event.body && JSON.parse(event.body);
   const { updateId, updateDoc } = reqBody;
