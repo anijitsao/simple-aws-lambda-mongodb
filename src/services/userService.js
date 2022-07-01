@@ -11,7 +11,7 @@ import {
   sendForbiddenResponse,
 } from "../helpers/sendResponse.js";
 
-import { verifyToken } from "../helpers/jwtHelper.js";
+import { verifyToken } from "../helpers/jwtHelpers.js";
 
 const getAllUsersHandler = async (event) => {
   const verified = verifyToken(event);

@@ -1,5 +1,5 @@
 // local dependencies
-import { createToken } from "../helpers/jwtHelper.js";
+import { createToken } from "../helpers/jwtHelpers.js";
 import { sendResponse } from "../helpers/sendResponse.js";
 import { findUserFromDb } from "../dbRelated/logindDbOps.js";
 
