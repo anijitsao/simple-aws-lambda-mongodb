@@ -32,6 +32,10 @@
     "login": {
       "handler": "src/services/loginService.loginHandler",
       "events": [{ "httpApi": "POST /login" }]
+    },
+    "checkRedis": {
+      "handler": "src/services/redisService.checkRedisHandler",
+      "events": [{ "httpApi": "POST /check" }]
     }
   }
 }
