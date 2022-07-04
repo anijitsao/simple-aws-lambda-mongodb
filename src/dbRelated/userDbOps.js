@@ -23,15 +23,21 @@ const getAllUsers = async () => {
   //  redis operations
   let usersInCache = [];
   try {
-    await connectRedis();
+    connectRedis();
     usersInCache = await getValueFromRedis("allUsers");
-    await closeConnectionToRedis();
+    usersInCache = JSON.parse(usersInCache);
+    if (usersInCache) {
+      return sendResponse(SUCCESS_CODE, { usersInCache });
+    }
   } catch (error) {
     return sendResponse(ERROR_CODE, {
       message: "Unable to get records from Redis",
       error: error.toString(),
     });
+  } finally {
+    closeConnectionToRedis();
   }
+
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
@@ -44,7 +50,10 @@ const getAllUsers = async () => {
       .toArray();
 
     const users = data.length > 0 ? [...data] : [];
-    const res = { users, usersInCache };
+
+    // save data to Redis cache
+    await setValueToRedis("allUsers", users);
+    const res = { users };
 
     return sendResponse(SUCCESS_CODE, res);
   } catch (error) {
@@ -56,6 +65,7 @@ const getAllUsers = async () => {
   } finally {
     // close the connection to MongoDB Atlas
     closeConnectionToDB(client);
+    closeConnectionToRedis();
   }
 };
 
