@@ -69,5 +69,40 @@ All the `cron` events will invoke the deployed functions in stipulated time inte
 
 However, to call using `httpApi` you can use any REST Client like [Talend API Tester](https://chrome.google.com/webstore/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm?hl=en) with the `url` and *HTTP Verbs* as shown in Terminal after using `serverless deploy`.
 
+## API Listing
+
+**POST** /login have the following input json
+```json
+{
+  "username": "arisgh7"
+} 
+```
+Following APIs **must** contain `Authorization: Bearer <token>` in the *headers* 
+
+**POST** /adduser have the following input json
+```json
+{
+  "name": "John Doe",
+  "designation": "Actor"
+}  
+```
+
+**GET** /getallusers have no input json
+
+**DELETE** /deleteuser?recordId=record-id-to-delete have no input json. But it should contain the record id to be deleted in the *Query string*
+
+**PUT** /updateuser have the following input json
+```js
+
+  {
+  "updateId": "61cb02d7de06af8f5d0f918f",
+  "updateDoc": {
+    "name": "Arijit Singh",
+    "designation": "Singer",
+    "country": "India" // this field is optional
+  }
+
+}  
+```
 
 
