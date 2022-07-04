@@ -5,15 +5,24 @@ const connectRedis = async () => {
 };
 
 // get value based on the key provided
-const getValue = async (key) => {
+const getValueFromRedis = async (key) => {
   const value = await redisClient.get(key);
   return value;
 };
 
 // set the value to key provided
-const setValue = async (key, value) => {
+const setValueToRedis = async (key, value) => {
   await redisClient.set(key, value);
-  return;
 };
 
-export { connectRedis, getValue, setValue };
+// close the redis connection
+const closeConnectionToRedis = async () => {
+  await redisClient.quit();
+};
+
+export {
+  connectRedis,
+  getValueFromRedis,
+  setValueToRedis,
+  closeConnectionToRedis,
+};

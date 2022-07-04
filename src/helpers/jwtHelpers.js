@@ -8,9 +8,13 @@ const { sign, verify } = jwt;
 
 // create token from the payload
 const createToken = (payload) => {
-  const token = sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_TOKEN_EXPIRES_IN,
-  });
+  const token = sign(
+    { ...payload, appName: process.env.APP_NAME },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_TOKEN_EXPIRES_IN,
+    }
+  );
 
   return token;
 };
@@ -21,7 +25,7 @@ const verifyToken = (event) => {
     const decoded = verify(token, process.env.JWT_SECRET);
 
     // if the token has the correct data it is passed
-    if (decoded.username === "anijit123") {
+    if (decoded.appName === process.env.APP_NAME) {
       return true;
     }
     return false;

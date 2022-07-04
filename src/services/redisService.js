@@ -1,10 +1,19 @@
 // local dependencies
-import { setValue, getValue, connectRedis } from "../helpers/redisHelpers.js";
+import {
+  setValueToRedis,
+  getValueFromRedis,
+  connectRedis,
+  closeConnectionToRedis,
+} from "../helpers/redisHelpers.js";
 import { sendResponse } from "../helpers/sendResponse.js";
 
 const checkRedisHandler = async (event) => {
   try {
-    const res = { message: "API endpoint reached" };
+    await connectRedis();
+    const cachedNameValue = await getValueFromRedis("name");
+    await setValueToRedis("name", "JOe");
+    await closeConnectionToRedis();
+    const res = { message: "API endpoint reached", name: cachedNameValue };
     return sendResponse(process.env.SUCCESS_CODE, res);
   } catch (error) {
     return sendResponse(process.env.ERROR_CODE, { error: error.toString() });

@@ -7,18 +7,31 @@ import {
   convertToObjectId,
 } from "../helpers/dbHelpers.js";
 
-// top level await to connect the MongoDB Atlas
-// const client = await dbClient.connect();
+// redis dependencies
+import {
+  setValueToRedis,
+  getValueFromRedis,
+  connectRedis,
+  closeConnectionToRedis,
+} from "../helpers/redisHelpers.js";
 
 // all the db related process variables
-const {
-  DB_NAME,
-  COLLECTION_USER_STICKER,
-  SUCCESS_CODE,
-  ERROR_CODE,
-} = process.env;
+const { DB_NAME, COLLECTION_USER_STICKER, SUCCESS_CODE, ERROR_CODE } =
+  process.env;
 
 const getAllUsers = async () => {
+  //  redis operations
+  let usersInCache = [];
+  try {
+    await connectRedis();
+    usersInCache = await getValueFromRedis("allUsers");
+    await closeConnectionToRedis();
+  } catch (error) {
+    return sendResponse(ERROR_CODE, {
+      message: "Unable to get records from Redis",
+      error: error.toString(),
+    });
+  }
   const client = await createConnectionToDB();
   try {
     // select the db, Collections are selected based on needs
@@ -31,7 +44,7 @@ const getAllUsers = async () => {
       .toArray();
 
     const users = data.length > 0 ? [...data] : [];
-    const res = { users };
+    const res = { users, usersInCache };
 
     return sendResponse(SUCCESS_CODE, res);
   } catch (error) {
