@@ -22,20 +22,19 @@ const { DB_NAME, COLLECTION_USER_STICKER, SUCCESS_CODE, ERROR_CODE } =
 const getAllUsers = async () => {
   //  redis operations
   let usersInCache = [];
+  await connectRedis();
   try {
-    connectRedis();
     usersInCache = await getValueFromRedis("allUsers");
     usersInCache = JSON.parse(usersInCache);
     if (usersInCache) {
-      return sendResponse(SUCCESS_CODE, { usersInCache });
+      closeConnectionToRedis();
+      return sendResponse(SUCCESS_CODE, { users: usersInCache });
     }
   } catch (error) {
     return sendResponse(ERROR_CODE, {
       message: "Unable to get records from Redis",
       error: error.toString(),
     });
-  } finally {
-    closeConnectionToRedis();
   }
 
   const client = await createConnectionToDB();
