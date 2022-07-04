@@ -95,7 +95,7 @@ Following APIs **must** contain `Authorization: Bearer <token>` in the *headers*
 ```js
 
 {
-  "updateId": "61cb02d7de06af8f5d0f918f",
+  "updateId": "id-of-the-record-to-be-updated",
   "updateDoc": {
     "name": "Arijit Singh",
     "designation": "Singer",
