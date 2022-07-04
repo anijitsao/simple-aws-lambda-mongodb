@@ -1,14 +1,14 @@
 # simple-aws-lambda-mongodb
 
-This example demonstrates how to deploy a [NodeJS](https://nodejs.org/en/docs/) function running on [AWS Lambda](https://aws.amazon.com/lambda/) using the traditional [Serverless](https://www.serverless.com/framework/docs/providers/aws/guide/intro) Framework. The deployed function works with multiple type of event definitions.
+This example demonstrates how to deploy a [NodeJS](https://nodejs.org/en/docs/) function running on [AWS Lambda](https://aws.amazon.com/lambda/) using the traditional [Serverless](https://www.serverless.com/framework/docs/providers/aws/guide/intro) Framework. The deployed functions work with [MongoDB Atlas](https://www.mongodb.com/docs/atlas/).
 
-This Example works with both `cron` events and `httpApi` events. 
+This Example works with [AWS HTTP API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop.html) events. For faster response with the APIs [Redis](https://redis.io/) *caching* is used. For *session tracking* [JSON Web Token (JWT)](https://jwt.io/) is used.
 
-When deployed the [AWS Lambda](https://aws.amazon.com/lambda/) function sends Emails by using [AWS Simple Email Service(SES)](https://aws.amazon.com/ses/). Now the Emails can be sent either by an [AWS HTTP API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop.html) event or by a `cron` like fashion to a stipulated time interval set in the [AWS Cloudformation](https://aws.amazon.com/cloudformation/) Stack.
+All *logs* for the function is kept in [AWS Cloudwatch](https://aws.amazon.com/cloudwatch/) i.e *persistent*.
 
-All *logs* for the function is kept in [AWS Cloudwatch](https://aws.amazon.com/cloudwatch/) i.e *persistent*. [AWS EventBridge](https://aws.amazon.com/about-aws/whats-new/2019/07/introducing-amazon-eventbridge/) is used to handle **both** types of `schedule` and `http` events.
+To use the code in this example you **must** have an valid [AWS account](https://aws.amazon.com/account/) and necessary [AWS IAM](https://aws.amazon.com/iam/) roles and programmatic access to an user. You **must** have a [MongoDB Atlas](https://www.mongodb.com/docs/atlas/) account as well as an [AWS EC2](https://aws.amazon.com/ec2/) instance should be installed with [Redis](https://redis.io/).
 
-To use the code in this example you **must** have an valid [AWS account](https://aws.amazon.com/account/) and necessary [AWS IAM](https://aws.amazon.com/iam/) roles and programmatic access to an user.
+[User Sticker App](https://github.com/anijitsahu/react-app-simple-user-sticker-app) is related to this application.
 
 ## Features
 1. [AWS Lambda](https://aws.amazon.com/lambda/) function using [NodeJS](https://nodejs.org/en/docs/)
@@ -27,12 +27,12 @@ To use the code in this example you **must** have an valid [AWS account](https:/
 </ol>  
 
 
-6. **Two** types of events are supported `httpAPi` and `schedule`
+6. For **session tracking** [JWT](https://jwt.io/) is used.
 7. [AWS HTTP API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop.html) are using [AWS API GateWay](https://aws.amazon.com/api-gateway/)
 
 <ol start="8">
-  <li> All Emails are sent using <a href="https://aws.amazon.com/ses/">AWS Simple Email Service(SES)</a>. For that purpose valid <i>Identities</i> must be created.</li>
-  <li>  Email Templates are created using <a href="https://www.w3schools.com/html/default.asp">HTML5</a> and <a href="https://www.w3schools.com/css/">CSS3</a></li> 
+  <li> All data is saved in <a href="https://www.mongodb.com/docs/atlas/">MongoDB Atlas</a> i.e. <i>persistent</i>
+  <li> <strong>Caching</strong> is used for faster response in the APIs. <a href="https://redis.io/">Redis</a> is used for that purpose</li> 
   <li> This APIs can also be consumed by any <b>Frontend Application</b>.</li> 
 </ol>  
 
