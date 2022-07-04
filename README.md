@@ -94,14 +94,13 @@ Following APIs **must** contain `Authorization: Bearer <token>` in the *headers*
 **PUT** /updateuser have the following input json
 ```js
 
-  {
+{
   "updateId": "61cb02d7de06af8f5d0f918f",
   "updateDoc": {
     "name": "Arijit Singh",
     "designation": "Singer",
     "country": "India" // this field is optional
   }
-
 }  
 ```
 
