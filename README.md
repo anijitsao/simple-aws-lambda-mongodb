@@ -44,7 +44,7 @@ To use the code in this example you **must** have an valid [AWS account](https:/
 First clone the repo
 
 ```bash
-$ git clone git@github.com:anijitsahu/simple-aws-lambda-mongodb.git
+$ git clone https://github.com/anijitsahu/simple-aws-lambda-mongodb.git
 ```
 Install all the necessary dependencies by going inside the directory
 
